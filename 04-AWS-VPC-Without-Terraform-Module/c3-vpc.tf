@@ -38,7 +38,7 @@ resource "aws_internet_gateway" "my-igw" {
 
 # Create Public Route Table in order to connect our public subnet to the Internet Gateway
 resource "aws_route_table" "my-public-route-table" {
-  vpc_id = aws_vpc.my-vpc
+  vpc_id = aws_vpc.my-vpc.id
 }
 
 #Create Route in Route Table for Internet Access and attach IGW
@@ -57,7 +57,7 @@ resource "aws_route_table_association" "pub-rt-associate" {
 # Resource-5:  Create NAT Gateway
 resource "aws_nat_gateway" "my-natgw" {
   allocation_id = "aws_eip.my-eip"
-  subnet_id = aws_subnet.test-public-subnet-01
+  subnet_id = aws_subnet.test-public-subnet-01.id
   tags = {
     Name = "Test-NAT-GW"
   }
