@@ -1,6 +1,6 @@
 # Create Security Group - SSH Traffic
 resource "aws_security_group" "vpc-web-ssh" {
-  name        = "vpc-ssh"
+  name        = "vpc-web-ssh"
   description = "Allow Web & SSH inbound traffic"
   vpc_id = aws_vpc.my-vpc.id
   
@@ -32,7 +32,7 @@ resource "aws_security_group" "vpc-web-ssh" {
 
 # Create Security Group - Web Traffic
 resource "aws_security_group" "vpc-mysql-ssh" {
-  name        = "vpc-web"
+  name        = "vpc-mysql-ssh"
   description = "Allow Web inbound traffic"
   vpc_id = aws_vpc.my-vpc.id
 
@@ -59,6 +59,6 @@ resource "aws_security_group" "vpc-mysql-ssh" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "vpc-web"
+    Name = "vpc-mysql-ssh"
   }
 }
