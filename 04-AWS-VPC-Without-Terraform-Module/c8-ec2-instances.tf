@@ -19,7 +19,7 @@ resource "aws_instance" "myec2-db" {
     sudo systemctl start mysqld
     EOF  
   subnet_id = aws_subnet.test-private-subnet-01.id
-  vpc_security_group_ids = [aws_security_group.vpc-ssh.id]
+  vpc_security_group_ids = [aws_security_group.vpc-mysql-ssh.id]
   tags = {
       "Name" = "EC2-Test-DB" 
   }  
@@ -40,7 +40,7 @@ resource "aws_instance" "myec2-web" {
     echo "<h1>Welcome to DevOps Learning ! AWS Infra created using Terraform in us-east-1 Region</h1>" > /var/www/html/index.html
     EOF  
   subnet_id = aws_subnet.test-public-subnet-01.id
-  vpc_security_group_ids = [aws_security_group.vpc-web.id]
+  vpc_security_group_ids = [aws_security_group.vpc-web-ssh.id]
   tags = {
       "Name" = "EC2-Test-WEB" 
   }  

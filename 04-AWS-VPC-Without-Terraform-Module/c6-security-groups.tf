@@ -1,13 +1,20 @@
 # Create Security Group - SSH Traffic
-resource "aws_security_group" "vpc-ssh" {
+resource "aws_security_group" "vpc-web-ssh" {
   name        = "vpc-ssh"
-  description = "Allow SSH inbound traffic"
+  description = "Allow Web & SSH inbound traffic"
   vpc_id = aws_vpc.my-vpc.id
   
   ingress {
     description = "Allow port 22"
     from_port   = 22
     to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["aws_vpc.my-vpc.cidr_block"]
+  }
+  ingress {
+    description = "Allow port 80"
+    from_port   = 80
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -19,29 +26,29 @@ resource "aws_security_group" "vpc-ssh" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   tags = {
-    Name = "vpc-ssh"
+    Name = "vpc-web-ssh"
   }
 }
 
 # Create Security Group - Web Traffic
-resource "aws_security_group" "vpc-web" {
+resource "aws_security_group" "vpc-mysql-ssh" {
   name        = "vpc-web"
   description = "Allow Web inbound traffic"
   vpc_id = aws_vpc.my-vpc.id
-  
+
   ingress {
-    description = "Allow port 80"
-    from_port   = 80
-    to_port     = 80
+    description = "Allow port 22"
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["aws_vpc.my-vpc.cidr_block"]
   }
   ingress {
-    description = "Allow port 443"
-    from_port   = 443
-    to_port     = 443
+    description = "Allow port 3306"
+    from_port   = 3306
+    to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["aws_vpc.my-vpc.cidr_block"]
   }  
 
   egress {
