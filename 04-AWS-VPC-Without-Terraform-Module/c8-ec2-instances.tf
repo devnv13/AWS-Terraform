@@ -5,7 +5,7 @@
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones
 
 
-# Create EC2 Instance for DB
+# Create EC2 Instance for MariaDB
 resource "aws_instance" "myec2-db" {
   ami = data.aws_ami.amzlinux.id
   instance_type = var.instance_type
@@ -14,9 +14,9 @@ resource "aws_instance" "myec2-db" {
   user_data = <<-EOF
     #!/bin/bash
     sudo yum update -y
-    sudo yum install mysql -y
-    sudo systemctl enable mysqld
-    sudo systemctl start mysqld
+    sudo dnf install mariadb105-server -y
+    sudo systemctl enable mariadb
+    sudo systemctl start mariadb
     EOF  
   subnet_id = aws_subnet.test-private-subnet-01.id
   vpc_security_group_ids = [aws_security_group.vpc-mysql-ssh.id]
