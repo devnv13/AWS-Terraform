@@ -56,7 +56,7 @@ resource "aws_route_table_association" "pub-rt-associate" {
 
 # Resource-5:  Create NAT Gateway
 resource "aws_nat_gateway" "my-natgw" {
-  allocation_id = "aws_eip.my-eip"
+  allocation_id = aws_eip.my-eip.id
   subnet_id = aws_subnet.test-public-subnet-01.id
   tags = {
     Name = "Test-NAT-GW"
