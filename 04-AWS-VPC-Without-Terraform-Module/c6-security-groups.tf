@@ -9,7 +9,7 @@ resource "aws_security_group" "vpc-web-ssh" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["aws_vpc.my-vpc.cidr_block"]
+    cidr_blocks = ["aws_vpc.my-vpc.cidr_block.id"]
   }
   ingress {
     description = "Allow port 80"
@@ -41,7 +41,7 @@ resource "aws_security_group" "vpc-mysql-ssh" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["aws_vpc.my-vpc.cidr_block"]
+    cidr_blocks = ["aws_vpc.my-vpc.cidr_block.id"]
   }
   ingress {
     description = "Allow port 3306"
