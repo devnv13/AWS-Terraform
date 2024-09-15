@@ -18,7 +18,7 @@ resource "aws_instance" "myec2-db" {
     sudo systemctl enable mariadb
     sudo systemctl start mariadb
     EOF  
-  subnet_id = module.vpc.private_subnets
+  subnet_id = module.vpc.private_subnets[0]
   vpc_security_group_ids = [aws_security_group.vpc-mysql-ssh.id]
   tags = {
       "Name" = "EC2-Test-DB" 
@@ -39,7 +39,7 @@ resource "aws_instance" "myec2-web" {
     sudo systemctl start httpd
     echo "<h1>Welcome to DevOps Learning ! AWS Infra created using Terraform in us-east-1 Region</h1>" > /var/www/html/index.html
     EOF  
-  subnet_id = module.vpc.public_subnets
+  subnet_id = module.vpc.public_subnets[0]
   vpc_security_group_ids = [aws_security_group.vpc-web-ssh.id]
   tags = {
       "Name" = "EC2-Test-WEB" 
