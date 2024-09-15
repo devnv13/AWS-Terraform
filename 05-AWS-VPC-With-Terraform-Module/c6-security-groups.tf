@@ -2,14 +2,14 @@
 resource "aws_security_group" "vpc-web-ssh" {
   name        = "vpc-web-ssh"
   description = "Allow Web & SSH inbound traffic"
-  vpc_id = aws_vpc.my-vpc.id
+  vpc_id = module.vpc.vpc_id
   
   ingress {
     description = "Allow port 22"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.my-vpc.cidr_block]
+    cidr_blocks = [module.vpc.vpc_cidr_block]
   }
   ingress {
     description = "Allow port 80"
@@ -34,21 +34,21 @@ resource "aws_security_group" "vpc-web-ssh" {
 resource "aws_security_group" "vpc-mysql-ssh" {
   name        = "vpc-mysql-ssh"
   description = "Allow Web inbound traffic"
-  vpc_id = aws_vpc.my-vpc.id
+  vpc_id = module.vpc.vpc_id
 
   ingress {
     description = "Allow port 22"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.my-vpc.cidr_block]
+    cidr_blocks = [module.vpc.vpc_cidr_block]
   }
   ingress {
     description = "Allow port 3306"
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = [aws_vpc.my-vpc.cidr_block]
+    cidr_blocks = [module.vpc.vpc_cidr_block]
   }  
 
   egress {
