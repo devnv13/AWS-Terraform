@@ -12,4 +12,5 @@ resource "null_resource" "copy_ec2_keys" {
     inline = [ 
         "sudo chmod 400 /home/ec2-user/teraform-key.pem"
      ]
-  }  
+  }
+}  
