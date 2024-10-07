@@ -12,5 +12,5 @@ resource "aws_key_pair" "test-vpc-key" {
 provider "local" {}
 resource "local_file" "key" {
   content = tls_private_key.pvt-key.private_key_pem
-  filename = "terraform-newkey.pem"
+  filename = "private-key/terraform-newkey.pem"
 }
