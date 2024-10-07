@@ -7,13 +7,13 @@ resource "null_resource" "copy_ec2_keys" {
     host = aws_instance.ec2-bastion.public_ip
     user = "ec2-user"
     password = ""
-    private_key = file("private-key/terraform-newkey.pem")
+    private_key = tls_private_key.pvt-key.private_key_pem
   }
 
 # File Provisioner to copy terraform-key.pem file to /home/ec2-user in bastion
   provisioner "file" {
-    source = "/private-key/terraform-newkey.pem"
-    destination = "/home/ec2-user/"
+    source = "private-key/terraform-newkey.pem"
+    destination = "/home/ec2-user/terraform-newkey.pem"
   }
 # Remote Exec Provisioner: Using remote-exec provisioner fix the private key permissions on Bastion Host
   provisioner "remote-exec" {
@@ -21,4 +21,4 @@ resource "null_resource" "copy_ec2_keys" {
         "sudo chmod 400 /home/ec2-user/teraform-newkey.pem"
      ]
   }
-}  
+}
