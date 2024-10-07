@@ -5,12 +5,12 @@ resource "tls_private_key" "pvt-key" {
 }
 
 resource "aws_key_pair" "test-vpc-key" {
-  key_name = "terraform-key"
+  key_name = "terraform-newkey"
   public_key = tls_private_key.pvt-key.public_key_openssh
 }
 
 provider "local" {}
 resource "local_file" "key" {
   content = tls_private_key.pvt-key.private_key_pem
-  filename = "terraform-key.pem"
+  filename = "terraform-newkey.pem"
 }
