@@ -18,7 +18,7 @@ resource "null_resource" "copy_ec2_keys" {
 # Remote Exec Provisioner: Using remote-exec provisioner fix the private key permissions on Bastion Host
   provisioner "remote-exec" {
     inline = [ 
-        "sudo chmod 400 /home/ec2-user/teraform-newkey.pem"
+        "sudo chmod 400 /home/ec2-user/terraform-newkey.pem"
      ]
   }
 }
