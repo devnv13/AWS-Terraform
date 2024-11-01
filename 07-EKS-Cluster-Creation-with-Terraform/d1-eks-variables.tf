@@ -9,14 +9,14 @@ variable "eks_cluster_name" {
 variable "cluster_service_ipv4_cidr" {
     description = "Service IPV4 CIDR for Kubernetes Cluster"
     type = string
-    default = "null"  
+    default = null  
 }
 
 variable "cluster_version" {
   description = "Kubernetes minor version to use for Kubernetes"
   #https://docs.aws.amazon.com/eks/latest/userguide/kubernetes-versions.html
   type = string
-  default = "null"
+  default = null
 }
 
 variable "cluster_endpoint_private_acess" {
