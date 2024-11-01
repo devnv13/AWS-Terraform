@@ -25,14 +25,14 @@ variable "vpc_availability_zones" {
 variable "vpc_pubic_subnets" {
   description = "VCP Public Subnet"
   type = list(string)
-  default = ["10.0.1.0/24"]
+  default = ["10.0.1.0/24", "10.0.10.0/24"]
 }
 
 # VCP Private Subnet
 variable "vpc_private_subnets" {
   description = "VCP Private Subnet"
   type = list(string)
-  default = ["10.0.2.0/24"]
+  default = ["10.0.2.0/24", "10.0.20.0/24"]
 }
 
 # Enable VPC NAT Gateway (True/Fase)
