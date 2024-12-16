@@ -14,6 +14,9 @@ resource "aws_instance" "ec2-bastion" {
   user_data = <<-EOF
     #!/bin/bash
     sudo yum update -y
+    sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+    sudo chmod +x ./kubectl
+    sudo cp -pr ./kubectl /usr/local/bin/kubectl
     EOF  
   subnet_id = module.vpc.public_subnets[0]
   vpc_security_group_ids = [aws_security_group.bastion-sg.id]
