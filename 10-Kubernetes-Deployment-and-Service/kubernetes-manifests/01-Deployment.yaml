@@ -15,7 +15,7 @@ spec: # Dictionary
     spec:
       containers: # List
         - name: nginxapp-container
-          image: devnv/nginx-test:0.1.0
+          image: devnv/nginxweb1:latest
           ports: 
             - containerPort: 80  
       imagePullSecrets:
