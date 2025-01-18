@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment 
+metadata: #Dictionary
+  name: nginxapp-deployment
+spec: # Dictionary
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginxapp
+  template:  
+    metadata: # Dictionary
+      name: nginxapp-pod
+      labels: # Dictionary
+        app: nginxapp  # Key value pairs
+    spec:
+      containers: # List
+        - name: nginxapp-container
+          image: devnv/nginx-test:0.1.0
+          ports: 
+            - containerPort: 80  
+      imagePullSecrets:
+        - name: registrycred
+    
