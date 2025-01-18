@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openjdk-demo
+  labels:
+    app: openjdk-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openjdk-demo
+  template:
+    metadata:
+      labels:
+        app: openjdk-demo
+    spec:
+      containers:
+      - name: openjdk-demo
+        image: docker.io/devnv/openjdk-11-demo:1.0.2
+        ports:
+        - containerPort: 8080
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+      imagePullSecrets:
+      - name: registrycred
+---
+
+# Service YAML for OpenJDK pod
+apiVersion: v1
+kind: Service
+metadata:
+  name: openjdk-service
+spec:
+  selector:
+    app: openjdk-demo
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP

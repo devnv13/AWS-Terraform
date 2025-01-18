@@ -1,0 +1,22 @@
+# ReplicaSet: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#replicaset-v1-apps
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-rs
+  labels:
+    app: myapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: nginxweb1
+        image: devnv/nginxweb1:latest
+      ports:
+        - containerPort: 80        

@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openjdk-demo
+  labels:
+    app: openjdk-demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: openjdk-demo
+  template:
+    metadata:
+      labels:
+        app: openjdk-demo
+    spec:
+      containers:
+      - name: openjdk-demo
+        image: docker.io/devnv/openjdk-11-demo:1.0.2
+        ports:
+        - containerPort: 8080
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+      imagePullSecrets:
+      - name: registrycred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: openjdk-service
+  labels:
+    app: openjdk-demo
+spec:
+  selector:
+    app: openjdk-demo
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP

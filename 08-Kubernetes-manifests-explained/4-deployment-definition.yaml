@@ -1,0 +1,22 @@
+# API Reference: https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.26/#deployment-v1-apps
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: nginxweb1
+        image: devnv/nginxweb1:latest
+      ports:
+        - containerPort: 80

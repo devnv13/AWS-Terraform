@@ -1,0 +1,25 @@
+# Pod API Objects Reference:
+# https://kubernetes.io/docs/reference/kubernetes-api/service-resources/service-v1/
+
+apiVersion: v1 # String
+kind: Service # String
+metadata: # dictionary object
+  name: myapp-pod-service # Service Name
+  labels: # dictionary object
+    app: myapp #(This is optional here)
+spec:
+  type: NodePort # or LoadBalancer # or externalName # or ClusterIP (this is default)
+  selector:
+    app: myapp
+  ports:
+    - name: http
+      port: 80 # Service Port
+      targetPort: 80 # App or Container Port
+      NodePort: 31257 # NodePort
+
+
+## Selector definition:
+#Whatever traffic comes into this service, selector will route the traffic to 
+#correct pod based on label defined in pod and compare it with here key value pair 
+#i.e. app: myapp and send traffic only to those respective pod. So, selector label 
+# will matches with pods label and then send the traffic to that pod
